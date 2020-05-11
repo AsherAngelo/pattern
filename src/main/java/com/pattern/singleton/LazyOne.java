@@ -12,7 +12,6 @@ public class LazyOne {
     //那么如何防止被反射调用
     private static boolean initialized = false;
 
-
     public LazyOne() {
         synchronized (LazyOne.class){
             if(!initialized){
@@ -22,6 +21,8 @@ public class LazyOne {
             }
         }
     }
+
+    //这是懒汉不安全的，如果想要安全需要加synchronized但是性能有问题
     private static LazyOne lazyOne = null;
     public static LazyOne getInstance(){
         if(lazyOne==null){
@@ -39,7 +40,7 @@ public class LazyOne {
     }
 
     //下面使用静态内部类的方法进行处理
-    public static LazyOne getInstanceV2(){
+    public static final LazyOne getInstanceV2(){
         return Lazy.lazyOne;
     }
 

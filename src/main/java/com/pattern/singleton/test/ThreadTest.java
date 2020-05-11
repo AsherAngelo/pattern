@@ -41,6 +41,7 @@ public class ThreadTest {
     //有时会出现同一个时间点出现两个对象
     public static void main(String[] args) {
         int count = 100;
+        //发令枪
         CountDownLatch countDownLatch = new CountDownLatch(count);
         // final Set<Hungry> syncSet = Collections.synchronizedSet(new HashSet<>());
         for (int i = 0; i < count; i++) {
@@ -48,13 +49,16 @@ public class ThreadTest {
                 @Override
                 public void run() {
                     try {
+                        //阻塞住，countDownLatch==0的时候放开一起执行
                         countDownLatch.await();
                         System.out.println(System.currentTimeMillis()+":"+LazyOne.getInstance());
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
+                    Hungry.getInstance();
                 }
             }.start();
+            //释放所有的锁
             countDownLatch.countDown();
         }
     }

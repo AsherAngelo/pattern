@@ -32,7 +32,7 @@ public class RegSingleton {
         if (name == null) {
             name = "RegSingleton";
         }
-        if (registry.get(name) == null) {
+        if (registry.containsKey(name)) {
             //没有登记就进入同步块
             //这个是静态的所以就只能锁类了
             synchronized (RegSingleton.class){
