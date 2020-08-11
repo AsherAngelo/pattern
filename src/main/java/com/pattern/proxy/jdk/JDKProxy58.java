@@ -22,7 +22,6 @@ public class JDKProxy58 implements InvocationHandler {
         //用来生成一个新的对象（字节码重组来实现）
         //这里的clazz.getInterfaces()就规定了必须实现一个接口
         return Proxy.newProxyInstance(clazz.getClassLoader(),clazz.getInterfaces(),this);
-
     }
 
 

@@ -1,4 +1,8 @@
-package com.pattern.prototype;
+package com.test.prototype;
+
+import com.pattern.prototype.ClonePerson;
+import com.sun.xml.internal.messaging.saaj.util.ByteInputStream;
+import com.sun.xml.internal.messaging.saaj.util.ByteOutputStream;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -45,21 +49,20 @@ public class Prototype implements Cloneable,Serializable{
     //如果想要实现深复制，需要使用这个方法
     public Object deepClone(){
         try {
-            ByteArrayOutputStream bos = new ByteArrayOutputStream();
-            ObjectOutputStream oos = new ObjectOutputStream(bos);
+            ByteArrayOutputStream bis  = new ByteArrayOutputStream();
+            ObjectOutputStream oos = new ObjectOutputStream(bis);
             oos.writeObject(this);
 
-            ByteArrayInputStream bis = new ByteArrayInputStream(bos.toByteArray());
-            ObjectInputStream ois = new ObjectInputStream(bis);
-            Prototype clone = (Prototype)ois.readObject();
-            return clone;
-        } catch (Exception e) {
+            ByteArrayInputStream byteInputStream = new ByteArrayInputStream(bis.toByteArray());
+            ObjectInputStream objectInputStream = new ObjectInputStream(byteInputStream);
+            Prototype prototype = (Prototype)objectInputStream.readObject();
+            return prototype;
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
         return null;
-
-
     }
-
 
 }
